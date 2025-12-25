@@ -21,13 +21,10 @@ import SectionDivider from "./SectionDivider";
 export default function FixedSections() {
   return (
     <>
-      <SectionDivider variant="gradient" className="my-0" />
       <GetStarted />
-      <SectionDivider variant="soft" className="my-0" />
       <MultiPlatform />
       <SectionDivider variant="blur" className="my-0" />
       <Features />
-      <SectionDivider variant="gradient" className="my-0" />
       <FinalCTA />
     </>
   );
