@@ -24,6 +24,7 @@ interface DraggableSectionRowProps {
   deleting: string | null;
   videosCount?: number;
   imagesCount?: number;
+  forceDraggable?: boolean; // Force enable dragging even if is_draggable is false
 }
 
 export default function DraggableSectionRow({
@@ -35,6 +36,7 @@ export default function DraggableSectionRow({
   deleting,
   videosCount = 0,
   imagesCount = 0,
+  forceDraggable = false,
 }: DraggableSectionRowProps) {
   const {
     attributes,
@@ -60,7 +62,7 @@ export default function DraggableSectionRow({
       }`}
     >
       <td className="px-6 py-4 whitespace-nowrap">
-        {section.is_draggable !== false ? (
+        {(forceDraggable || section.is_draggable !== false) ? (
           <div
             {...attributes}
             {...listeners}

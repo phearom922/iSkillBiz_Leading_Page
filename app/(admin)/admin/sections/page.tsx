@@ -52,7 +52,7 @@ export default function SectionsPage() {
   });
   const [sectionStats, setSectionStats] = useState<Record<string, { videos: number; images: number }>>({});
   const [showPreview, setShowPreview] = useState(true);
-  const [activeTab, setActiveTab] = useState<"youtube" | "content_blocks">("youtube");
+  const [activeTab, setActiveTab] = useState<"youtube" | "content_blocks" | "all">("youtube");
   const { showToast, ToastComponent } = useToast();
 
   const sensors = useSensors(
@@ -398,7 +398,6 @@ export default function SectionsPage() {
       return;
     }
 
-    // Only allow dragging YouTube sections
     const activeSection = sections.find((s) => s.id === active.id);
     const overSection = sections.find((s) => s.id === over.id);
     
@@ -406,21 +405,55 @@ export default function SectionsPage() {
       return;
     }
 
-    // Check if both sections are draggable (YouTube sections)
-    if (!activeSection.is_draggable || !overSection.is_draggable) {
-      return;
+    // In "all" tab, allow dragging all sections (YouTube and Content Blocks)
+    // In other tabs, only allow dragging YouTube sections
+    if (activeTab === "all") {
+      // Allow dragging all sections in "all" tab
+    } else {
+      // Only allow dragging YouTube sections in other tabs
+      if (!activeSection.is_draggable || !overSection.is_draggable) {
+        return;
+      }
     }
 
-    const oldIndex = sections.findIndex((s) => s.id === active.id);
-    const newIndex = sections.findIndex((s) => s.id === over.id);
+    // Get filtered sections based on active tab
+    const filteredSections = sections.filter((s) => {
+      if (activeTab === "all") {
+        return s.section_type === 'youtube' || 
+               (s.type === 'youtube' && !s.section_type) || 
+               s.section_type === 'content_block';
+      } else if (activeTab === "youtube") {
+        return s.section_type === 'youtube' || (s.type === 'youtube' && !s.section_type);
+      } else {
+        return s.section_type === 'content_block';
+      }
+    }).sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    const oldIndex = filteredSections.findIndex((s) => s.id === active.id);
+    const newIndex = filteredSections.findIndex((s) => s.id === over.id);
 
     if (oldIndex === -1 || newIndex === -1) {
       return;
     }
 
-    // Optimistically update UI
-    const newSections = arrayMove(sections, oldIndex, newIndex);
-    setSections(newSections);
+    // Optimistically update UI - reorder filtered sections
+    const reorderedFilteredSections = arrayMove(filteredSections, oldIndex, newIndex);
+    
+    // Update orders for reordered sections
+    const newOrderMap: Record<string, number> = {};
+    reorderedFilteredSections.forEach((section, index) => {
+      newOrderMap[section.id] = index + 1;
+    });
+
+    // Update all sections with new orders
+    const updatedSections = sections.map(section => {
+      if (newOrderMap[section.id] !== undefined) {
+        return { ...section, order: newOrderMap[section.id] };
+      }
+      return section;
+    }).sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    setSections(updatedSections);
 
     // Update orders in database
     setUpdatingOrder(active.id as string);
@@ -432,8 +465,8 @@ export default function SectionsPage() {
         throw new Error("No authentication token found");
       }
 
-      // Update all affected sections with new orders
-      const updatePromises = newSections.map((section, index) =>
+      // Update all reordered sections with new orders
+      const updatePromises = reorderedFilteredSections.map((section, index) =>
         fetch(`${apiUrl}/api/sections/${section.id}`, {
           method: "PUT",
           headers: {
@@ -656,7 +689,7 @@ export default function SectionsPage() {
             <EyeIcon className="h-4 w-4" />
             <span className="hidden sm:inline">{showPreview ? "Hide" : "Show"} Preview</span>
           </button>
-          {activeTab === "youtube" && (
+          {(activeTab === "youtube" || activeTab === "all") && (
             <>
               <button
                 onClick={handleReorderAll}
@@ -671,13 +704,15 @@ export default function SectionsPage() {
                 )}
                 <span className="hidden sm:inline">Reorder All</span>
               </button>
-              <button
-                onClick={() => setShowAddForm(!showAddForm)}
-                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
-              >
-                <Plus className="h-4 w-4" />
-                Add YouTube Section
-              </button>
+              {activeTab === "youtube" && (
+                <button
+                  onClick={() => setShowAddForm(!showAddForm)}
+                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add YouTube Section
+                </button>
+              )}
             </>
           )}
         </div>
@@ -686,6 +721,23 @@ export default function SectionsPage() {
       {/* Tabs */}
       <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
         <nav className="flex space-x-8">
+          <button
+            onClick={() => setActiveTab("all")}
+            className={`py-4 px-1 border-b-2 font-medium text-sm ${
+              activeTab === "all"
+                ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+            }`}
+          >
+            All Sections
+            <span className="ml-2 text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+              {sections.filter((s) => 
+                s.section_type === 'youtube' || 
+                (s.type === 'youtube' && !s.section_type) || 
+                s.section_type === 'content_block'
+              ).length}
+            </span>
+          </button>
           <button
             onClick={() => setActiveTab("youtube")}
             className={`py-4 px-1 border-b-2 font-medium text-sm ${
@@ -719,12 +771,24 @@ export default function SectionsPage() {
       {showPreview && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 mb-6">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-            Preview: Section Order ({activeTab === "youtube" ? "YouTube Sections" : "Content Blocks"})
+            Preview: Section Order (
+              {activeTab === "all" 
+                ? "All Sections" 
+                : activeTab === "youtube" 
+                ? "YouTube Sections" 
+                : "Content Blocks"}
+            )
           </h2>
           <div className="space-y-2">
             {sections
               .filter((s) => {
-                if (activeTab === "youtube") {
+                if (activeTab === "all") {
+                  return s.is_active && (
+                    s.section_type === 'youtube' || 
+                    (s.type === 'youtube' && !s.section_type) || 
+                    s.section_type === 'content_block'
+                  );
+                } else if (activeTab === "youtube") {
                   return s.is_active && (s.section_type === 'youtube' || (s.type === 'youtube' && !s.section_type));
                 } else {
                   return s.is_active && s.section_type === 'content_block';
@@ -757,21 +821,27 @@ export default function SectionsPage() {
                 </div>
               ))}
             {sections.filter((s) => {
-              if (activeTab === "youtube") {
+              if (activeTab === "all") {
+                return s.is_active && (
+                  s.section_type === 'youtube' || 
+                  (s.type === 'youtube' && !s.section_type) || 
+                  s.section_type === 'content_block'
+                );
+              } else if (activeTab === "youtube") {
                 return s.is_active && (s.section_type === 'youtube' || (s.type === 'youtube' && !s.section_type));
               } else {
                 return s.is_active && s.section_type === 'content_block';
               }
             }).length === 0 && (
               <p className="text-gray-500 dark:text-gray-400 text-center py-4">
-                No {activeTab === "youtube" ? "YouTube" : "Content Block"} sections
+                No {activeTab === "all" ? "" : activeTab === "youtube" ? "YouTube " : "Content Block "}sections
               </p>
             )}
           </div>
         </div>
       )}
 
-      {showAddForm && activeTab === "youtube" && (
+      {showAddForm && (activeTab === "youtube" || activeTab === "all") && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 mb-6">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
             Create New YouTube Section
@@ -859,12 +929,16 @@ export default function SectionsPage() {
               {(() => {
                 // Filter sections based on active tab
                 const filteredSections = sections.filter((s) => {
-                  if (activeTab === "youtube") {
+                  if (activeTab === "all") {
+                    return s.section_type === 'youtube' || 
+                           (s.type === 'youtube' && !s.section_type) || 
+                           s.section_type === 'content_block';
+                  } else if (activeTab === "youtube") {
                     return s.section_type === 'youtube' || (s.type === 'youtube' && !s.section_type);
                   } else {
                     return s.section_type === 'content_block';
                   }
-                });
+                }).sort((a, b) => (a.order || 0) - (b.order || 0));
 
                 if (filteredSections.length === 0) {
                   return (
@@ -872,7 +946,7 @@ export default function SectionsPage() {
                       <td colSpan={6} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center gap-2">
                           <p className="text-gray-500 dark:text-gray-400">
-                            No {activeTab === "youtube" ? "YouTube" : "Content Block"} sections found
+                            No {activeTab === "all" ? "" : activeTab === "youtube" ? "YouTube " : "Content Block "}sections found
                           </p>
                           {activeTab === "youtube" && (
                             <p className="text-sm text-gray-400 dark:text-gray-500">
@@ -885,10 +959,12 @@ export default function SectionsPage() {
                   );
                 }
 
-                // Only enable drag-and-drop for YouTube sections
-                const draggableSections = activeTab === "youtube" 
+                // Enable drag-and-drop for all sections in "all" tab, or only YouTube sections in other tabs
+                const draggableSections = activeTab === "all"
+                  ? filteredSections // All sections are draggable in "all" tab
+                  : activeTab === "youtube"
                   ? filteredSections.filter((s) => s.is_draggable !== false)
-                  : [];
+                  : []; // Content blocks tab doesn't allow dragging
 
                 return (
                   <SortableContext
@@ -906,6 +982,7 @@ export default function SectionsPage() {
                         deleting={deleting}
                         videosCount={sectionStats[section.id]?.videos || 0}
                         imagesCount={sectionStats[section.id]?.images || 0}
+                        forceDraggable={activeTab === "all"} // Force draggable in "all" tab
                       />
                     ))}
                   </SortableContext>
