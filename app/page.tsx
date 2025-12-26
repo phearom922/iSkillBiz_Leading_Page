@@ -6,25 +6,15 @@ import Hero from "@/components/sections/Hero";
 import FixedSections from "@/components/FixedSections";
 import SectionRenderer from "@/components/SectionRenderer";
 import SectionDivider from "@/components/SectionDivider";
+import LoadingPage from "@/components/LoadingPage";
 import { useContentContext } from "@/components/ContentProvider";
 
 export default function Home() {
   const { content, loading } = useContentContext();
 
-  // Show loading state
+  // Show loading state - Full screen loading page without Header/Footer
   if (loading) {
-    return (
-      <main className="min-h-screen">
-        <Header />
-        <div className="py-12 text-center">
-          <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">
-            Loading content...
-          </p>
-        </div>
-        <Footer />
-      </main>
-    );
+    return <LoadingPage />;
   }
 
   if (!content?.sections || content.sections.length === 0) {
