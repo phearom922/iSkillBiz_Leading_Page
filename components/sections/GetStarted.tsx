@@ -78,14 +78,14 @@ export default function GetStarted() {
   const description = getSectionContent("Get Started", "description", "km") || "គ្មានការរៀបចំស្មុគ្រស្មាញ។ គ្មានការរង់ចាំ។ ចាប់ផ្តើមផ្សព្វផ្សាយទៅកាន់អតិថិជនរបស់អ្នកថ្ងៃនេះ។";
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gray-900 dark:bg-gray-900">
+    <section className="py-10 sm:py-14 lg:py-18 bg-white dark:bg-[#111827]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               {title}
             </h2>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-700 dark:text-white/90 max-w-2xl mx-auto">
               {description}
             </p>
           </div>
@@ -95,20 +95,20 @@ export default function GetStarted() {
                 key={index}
                 className="relative text-center rounded-lg p-[2px] bg-gradient-to-br from-primary-600 to-secondary-600"
               >
-                <div className="relative bg-gray-800 dark:bg-gray-900 rounded-lg p-6 h-full">
+                <div className="relative bg-gray-50 dark:bg-[#111827] rounded-lg p-6 h-full">
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                     <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                       {step.number}
                     </div>
                   </div>
                   <div className="pt-6">
-                    <div className="flex justify-center mb-4 text-white">
+                    <div className="flex justify-center mb-4 text-primary-600 dark:text-white">
                       {step.icon}
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-white/80">{step.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-white/80">{step.description}</p>
                   </div>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function GetStarted() {
             >
               Start Now - It's Free to Try
             </Button>
-            <p className="text-xs text-white/70 mt-3">
+            <p className="text-xs text-gray-600 dark:text-white/70 mt-3">
               មិនត្រូវការកាតឥណទាន • ការរៀបចំចំណាយពេលតិចជាង 10 នាទី
             </p>
           </div>

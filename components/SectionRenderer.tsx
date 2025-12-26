@@ -48,18 +48,11 @@ export default function SectionRenderer({
       return (
         <>
           {showDivider && index > 0 && (
-            <SectionDivider
-              variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-              className="my-0"
-            />
+            <SectionDivider variant="gradient" className="my-0" />
           )}
           <YouTubeSection
             sectionName={section.name}
-            className={
-              index % 2 === 0
-                ? "bg-white dark:bg-gray-900"
-                : "bg-gray-50 dark:bg-gray-800"
-            }
+            className="bg-white dark:bg-[#111827]"
           />
         </>
       );
@@ -71,10 +64,7 @@ export default function SectionRenderer({
           return (
             <>
               {showDivider && index > 0 && (
-                <SectionDivider
-                  variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-                  className="my-0"
-                />
+                <SectionDivider variant="gradient" className="my-0" />
               )}
               <UseCases />
             </>
@@ -84,10 +74,7 @@ export default function SectionRenderer({
           return (
             <>
               {showDivider && index > 0 && (
-                <SectionDivider
-                  variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-                  className="my-0"
-                />
+                <SectionDivider variant="gradient" className="my-0" />
               )}
               <SocialProof />
             </>
@@ -107,10 +94,7 @@ export default function SectionRenderer({
           return (
             <>
               {showDivider && index > 0 && (
-                <SectionDivider
-                  variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-                  className="my-0"
-                />
+                <SectionDivider variant="gradient" className="my-0" />
               )}
               <FeatureComparison />
             </>
@@ -121,10 +105,7 @@ export default function SectionRenderer({
           return (
             <>
               {showDivider && index > 0 && (
-                <SectionDivider
-                  variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-                  className="my-0"
-                />
+                <SectionDivider variant="gradient" className="my-0" />
               )}
               <UpsellBlocks />
             </>
@@ -135,18 +116,11 @@ export default function SectionRenderer({
           return (
             <>
               {showDivider && index > 0 && (
-                <SectionDivider
-                  variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-                  className="my-0"
-                />
+                <SectionDivider variant="gradient" className="my-0" />
               )}
               <DynamicSection
                 sectionName={section.name}
-                className={
-                  index % 2 === 0
-                    ? "bg-white dark:bg-gray-900"
-                    : "bg-gray-50 dark:bg-gray-800"
-                }
+                className="bg-white dark:bg-[#111827]"
               />
             </>
           );
@@ -157,18 +131,11 @@ export default function SectionRenderer({
       return (
         <>
           {showDivider && index > 0 && (
-            <SectionDivider
-              variant={index % 3 === 0 ? "blur" : index % 3 === 1 ? "gradient" : "soft"}
-              className="my-0"
-            />
+            <SectionDivider variant="gradient" className="my-0" />
           )}
           <DynamicSection
             sectionName={section.name}
-            className={
-              index % 2 === 0
-                ? "bg-white dark:bg-gray-900"
-                : "bg-gray-50 dark:bg-gray-800"
-            }
+            className="bg-white dark:bg-[#111827]"
           />
         </>
       );

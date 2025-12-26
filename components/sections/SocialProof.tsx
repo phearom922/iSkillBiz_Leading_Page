@@ -50,13 +50,13 @@ export default function SocialProof() {
   const description = getSectionContent("Social Proof", "description", "km") || "See how businesses like yours are using iskillbiz to reach more customers and grow faster.";
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gray-900 dark:bg-gray-950">
+    <section className="py-10 sm:py-14 lg:py-18 bg-gray-50 dark:bg-[#111827]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             {title}
           </h2>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 dark:text-white/90 max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -64,18 +64,18 @@ export default function SocialProof() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="relative rounded-lg p-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800 flex flex-col"
+              className="relative rounded-lg p-6 bg-white dark:bg-[#111827] border border-gray-200 dark:border-gray-800 flex flex-col"
             >
               <div className="flex items-center mb-4">
                 {testimonial.avatar}
                 <div className="ml-4">
-                  <h3 className="font-semibold text-white">
+                  <h3 className="font-semibold text-gray-900 dark:text-white">
                     {testimonial.name}
                   </h3>
-                  <p className="text-sm text-white/70">
+                  <p className="text-sm text-gray-600 dark:text-white/70">
                     {testimonial.role}
                   </p>
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-gray-500 dark:text-white/60">
                     {testimonial.company}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default function SocialProof() {
                   </svg>
                 ))}
               </div>
-              <p className="text-white/90 flex-grow">
+              <p className="text-gray-700 dark:text-white/90 flex-grow">
                 "{testimonial.content}"
               </p>
             </div>

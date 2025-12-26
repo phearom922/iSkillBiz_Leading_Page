@@ -15,7 +15,7 @@ export default function FinalCTA() {
   const ctaSecondaryLink = getSectionContent("Final CTA", "cta_secondary_link", "km") || "https://t.me/iskillsbiz";
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-700 dark:to-secondary-700">
+    <section className="py-10 sm:py-14 lg:py-18 bg-gradient-to-br from-primary-600 to-secondary-600 dark:from-primary-700 dark:to-secondary-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">

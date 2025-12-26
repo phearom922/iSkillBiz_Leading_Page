@@ -23,7 +23,7 @@ export default function FixedSections() {
     <>
       <GetStarted />
       <MultiPlatform />
-      <SectionDivider variant="blur" className="my-0" />
+      <SectionDivider variant="gradient" className="my-0" />
       <Features />
       <FinalCTA />
     </>

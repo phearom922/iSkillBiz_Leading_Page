@@ -10,7 +10,7 @@ export default function DynamicSections() {
   // Show loading state
   if (loading) {
     return (
-      <div className="py-20 text-center">
+      <div className="py-12 text-center">
         <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
         <p className="mt-4 text-gray-600 dark:text-gray-400">
           Loading sections...

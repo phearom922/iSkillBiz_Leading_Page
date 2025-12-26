@@ -10,15 +10,19 @@ interface DynamicSectionProps {
   className?: string;
 }
 
-export default function DynamicSection({ sectionName, className = "" }: DynamicSectionProps) {
-  const { getSectionContent, getVideos, getImages, getSection } = useContentContext();
-  
+export default function DynamicSection({
+  sectionName,
+  className = "",
+}: DynamicSectionProps) {
+  const { getSectionContent, getVideos, getImages, getSection } =
+    useContentContext();
+
   const section = getSection(sectionName);
   if (!section) {
     console.log(`⚠️ DynamicSection: Section "${sectionName}" not found`);
     return null;
   }
-  
+
   if (!section.is_active) {
     console.log(`⚠️ DynamicSection: Section "${sectionName}" is inactive`);
     return null;
@@ -46,12 +50,16 @@ export default function DynamicSection({ sectionName, className = "" }: DynamicS
 
   // If section has no content at all, don't render
   if (!hasTitle && !hasDescription && !hasVideos && !hasImages) {
-    console.log(`⚠️ DynamicSection "${sectionName}": No content found, skipping render`);
+    console.log(
+      `⚠️ DynamicSection "${sectionName}": No content found, skipping render`
+    );
     return null;
   }
 
   return (
-    <section className={`py-20 sm:py-28 lg:py-32 bg-white dark:bg-gray-900 ${className}`}>
+    <section
+      className={`py-10 sm:py-14 lg:py-18 bg-white dark:bg-[#111827] ${className}`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ส่วนที่ 1: Title + Description */}
         {(hasTitle || hasDescription) && (
@@ -105,7 +113,10 @@ export default function DynamicSection({ sectionName, className = "" }: DynamicS
         {hasImages && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {images.map((image: any) => (
-              <div key={image.id} className="relative aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+              <div
+                key={image.id}
+                className="relative aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800"
+              >
                 {image.image_url && (
                   <Image
                     src={image.image_url}
@@ -123,4 +134,3 @@ export default function DynamicSection({ sectionName, className = "" }: DynamicS
     </section>
   );
 }
-

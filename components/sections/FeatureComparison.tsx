@@ -79,7 +79,7 @@ export default function FeatureComparison() {
   const description = getSectionContent("Feature Comparison", "description", "km") || "Compare plans side by side to find the perfect fit for your needs.";
 
   return (
-    <section className="py-20 sm:py-28 lg:py-10 bg-white dark:bg-gray-900">
+    <section className="py-10 sm:py-14 lg:py-18 bg-white dark:bg-[#111827]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">

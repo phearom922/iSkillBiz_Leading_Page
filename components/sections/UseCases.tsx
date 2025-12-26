@@ -18,13 +18,13 @@ export default function UseCases() {
   const description = getSectionContent("Use Cases", "description", "km") || "អាជីវកម្មទាំងអស់ប្រើប្រាស់ iskillbiz ដើម្បីផ្ញើរសារទៅកាន់អតិថិជនរបស់ពួកគេឱ្យមានប្រសិទ្ធភាព";
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gray-900 dark:bg-gray-950 justify-center">
+    <section className="py-10 sm:py-14 lg:py-18 bg-white dark:bg-[#111827] justify-center">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             {title}
           </h2>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 dark:text-white/90 max-w-2xl mx-auto">
             {description}
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function UseCases() {
             {useCases.slice(0, 3).map((useCase, index) => (
               <div
                 key={index}
-                className="relative text-center rounded-lg p-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800"
+                className="relative text-center rounded-lg p-6 bg-gray-50 dark:bg-[#111827] border border-gray-200 dark:border-gray-800"
               >
                 <div className="flex items-center justify-center mb-4">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
@@ -53,7 +53,7 @@ export default function UseCases() {
                     </svg>
                   </div>
                 </div>
-                <p className="text-white font-medium text-base leading-tight">
+                <p className="text-gray-900 dark:text-white font-medium text-base leading-tight">
                   {useCase}
                 </p>
               </div>
@@ -64,7 +64,7 @@ export default function UseCases() {
             {useCases.slice(3, 5).map((useCase, index) => (
               <div
                 key={index + 3}
-                className="relative text-center rounded-lg p-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800 w-full max-w-xs"
+                className="relative text-center rounded-lg p-6 bg-gray-50 dark:bg-[#111827] border border-gray-200 dark:border-gray-800 w-full max-w-xs"
               >
                 <div className="flex items-center justify-center mb-4">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
@@ -83,7 +83,7 @@ export default function UseCases() {
                     </svg>
                   </div>
                 </div>
-                <p className="text-white font-medium text-base leading-tight">
+                <p className="text-gray-900 dark:text-white font-medium text-base leading-tight">
                   {useCase}
                 </p>
               </div>

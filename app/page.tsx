@@ -16,7 +16,7 @@ export default function Home() {
     return (
       <main className="min-h-screen">
         <Header />
-        <div className="py-20 text-center">
+        <div className="py-12 text-center">
           <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-400">
             Loading content...
@@ -32,7 +32,7 @@ export default function Home() {
     return (
       <main className="min-h-screen">
         <Header />
-        <div className="py-20 text-center">
+        <div className="py-12 text-center">
           <p className="text-gray-600 dark:text-gray-400">
             No content available
           </p>
@@ -77,7 +77,7 @@ export default function Home() {
       {/* 2. YouTube Sections + Content Blocks - Draggable, sorted by order */}
       {draggableSections.length > 0 && (
         <>
-          <SectionDivider variant="blur" className="my-0" />
+          <SectionDivider variant="gradient" className="my-0" />
           {draggableSections.map((section: any, index: number) => (
             <SectionRenderer
               key={section.id}

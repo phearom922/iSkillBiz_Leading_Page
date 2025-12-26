@@ -142,7 +142,7 @@ export default function ChatFlowDiagram() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 sm:py-28 lg:py-32 bg-white dark:bg-gray-900"
+      className="py-10 sm:py-14 lg:py-18 bg-white dark:bg-[#111827]"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">

@@ -31,7 +31,7 @@ export default function Hero() {
   const heroImage = heroImages.length > 0 ? heroImages[0] : null;
 
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 dark:from-slate-950 dark:via-blue-950 dark:to-slate-900 py-20 sm:py-24 lg:py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 dark:from-slate-950 dark:via-blue-950 dark:to-slate-900 py-12 sm:py-16 lg:py-20 overflow-hidden">
       {/* Subtle background overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-transparent to-purple-950/20 dark:from-blue-900/30 dark:to-purple-900/30"></div>
 

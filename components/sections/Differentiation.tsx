@@ -13,7 +13,7 @@ export default function Differentiation() {
   const videoUrl = videos.length > 0 ? videos[0].video_url : null;
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-gray-50 dark:bg-gray-800">
+    <section className="py-10 sm:py-14 lg:py-18 bg-gray-50 dark:bg-[#111827]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
