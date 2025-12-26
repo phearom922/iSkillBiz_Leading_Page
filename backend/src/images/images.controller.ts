@@ -20,8 +20,11 @@ export class ImagesController {
   constructor(private imagesService: ImagesService) {}
 
   @Get()
-  async findAll(@Query('section_id') sectionId?: string) {
-    return this.imagesService.findAll(sectionId);
+  async findAll(
+    @Query('section_id') sectionId?: string,
+    @Query('type') type?: string,
+  ) {
+    return this.imagesService.findAll(sectionId, type);
   }
 
   @Post('upload')

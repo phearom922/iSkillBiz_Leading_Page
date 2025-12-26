@@ -91,48 +91,24 @@ export default function DraggableSectionRow({
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex items-center gap-2">
-          {section.is_active ? (
-            <Eye className="h-4 w-4 text-green-600 dark:text-green-400" />
-          ) : (
-            <EyeOff className="h-4 w-4 text-gray-400" />
-          )}
-          <span
-            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-              section.is_active
-                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400"
-            }`}
-          >
-            {section.is_active ? "Visible" : "Hidden"}
-          </span>
-        </div>
+        <span
+          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+            section.is_active
+              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+              : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400"
+          }`}
+        >
+          {section.is_active ? "Visible" : "Hidden"}
+        </span>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => onToggleActive(section)}
-            disabled={toggling === section.id}
-            className="flex items-center gap-1 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-            title={section.is_active ? "Hide section" : "Show section"}
-          >
-            {toggling === section.id ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : section.is_active ? (
-              <EyeOff className="h-4 w-4" />
-            ) : (
-              <Eye className="h-4 w-4" />
-            )}
-            <span className="hidden sm:inline">
-              {section.is_active ? "Hide" : "Show"}
-            </span>
-          </button>
+        <div className="flex items-center gap-2">
           <button
             onClick={() => onEdit(section)}
-            className="flex items-center gap-1 text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
+            className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 hover:border-primary-500 dark:hover:border-primary-400 transition-all"
+            title="Edit section"
           >
             <Edit className="h-4 w-4" />
-            <span className="hidden sm:inline">Edit</span>
           </button>
           {/* Hide delete button for Content Blocks, Fixed Sections, Hero, and Footer */}
           {section.section_type !== 'content_block' && 
@@ -142,7 +118,7 @@ export default function DraggableSectionRow({
             <button
               onClick={() => onDelete(section)}
               disabled={deleting === section.id}
-              className="flex items-center gap-1 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-500 dark:hover:border-red-400 hover:text-red-600 dark:hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               title="Delete section"
             >
               {deleting === section.id ? (
@@ -150,7 +126,6 @@ export default function DraggableSectionRow({
               ) : (
                 <Trash2 className="h-4 w-4" />
               )}
-              <span className="hidden sm:inline">Delete</span>
             </button>
           )}
         </div>

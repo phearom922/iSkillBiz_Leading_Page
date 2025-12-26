@@ -3,14 +3,16 @@
 import { useState } from "react";
 import Button from "./ui/Button";
 import { useTheme } from "./ThemeProvider";
+import { useLogo } from "@/lib/hooks/useLogo";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { logoUrl } = useLogo();
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm">
-      <nav className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl">
+      <nav className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-0 max-w-7xl">
         <div className="flex items-center justify-between h-14 sm:h-16">
           <div className="flex-shrink-0">
             <a
@@ -18,7 +20,7 @@ export default function Header() {
               className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity"
             >
               <img
-                src="/images/iSkillBiz_logo_Officia.png"
+                src={logoUrl}
                 alt="iskillbiz logo"
                 className="h-8 sm:h-10 md:h-12 w-auto object-contain"
                 style={{ maxWidth: "140px" }}

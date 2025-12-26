@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLogo } from "@/lib/hooks/useLogo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { logoUrl } = useLogo();
 
   return (
     <footer className="bg-gray-100/50 dark:bg-gray-900/50 border-t border-gray-200/60 dark:border-gray-800/60">
@@ -9,7 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <img
-              src="/images/iSkillBiz_logo_Officia.png"
+              src={logoUrl}
               alt="iskillsbiz Logo"
               className="h-12 w-auto mb-4"
               style={{ maxWidth: "160px" }}

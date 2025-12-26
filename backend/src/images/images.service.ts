@@ -5,7 +5,7 @@ import { SupabaseService } from '../supabase/supabase.service';
 export class ImagesService {
   constructor(private supabaseService: SupabaseService) {}
 
-  async findAll(sectionId?: string) {
+  async findAll(sectionId?: string, type?: string) {
     const supabase = this.supabaseService.getClient();
     let query = supabase
       .from('images')
@@ -14,6 +14,10 @@ export class ImagesService {
 
     if (sectionId) {
       query = query.eq('section_id', sectionId);
+    }
+
+    if (type) {
+      query = query.eq('type', type);
     }
 
     const { data, error } = await query;

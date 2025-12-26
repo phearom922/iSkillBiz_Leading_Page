@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "@/components/ThemeProvider";
+import { useLogo } from "@/lib/hooks/useLogo";
 import {
   LayoutDashboard,
   FileText,
@@ -28,6 +30,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { logoUrl } = useLogo();
   const [user, setUser] = useState<any>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -74,12 +77,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-primary-100/50 dark:from-primary-900/20 dark:to-primary-900/10">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
-                <LayoutDashboard className="w-5 h-5 text-white" />
-              </div>
-              <span>iSkillBiz</span>
-            </h1>
+            <div className="flex items-center gap-2">
+              <Image
+                src={logoUrl}
+                alt="iSkillBiz Logo"
+                width={120}
+                height={32}
+                className="h-8 w-auto object-contain"
+                style={{ maxWidth: "140px" }}
+              />
+            </div>
             <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -103,7 +110,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`}
                 >
-                  <Icon className={`w-5 h-5 mr-3 ${isActive ? "text-primary-600 dark:text-primary-400" : ""}`} />
+                  <Icon
+                    className={`w-5 h-5 mr-3 ${
+                      isActive ? "text-primary-600 dark:text-primary-400" : ""
+                    }`}
+                  />
                   {item.name}
                 </Link>
               );
@@ -127,7 +138,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-red-800 dark:bg-red-900/20 text-white dark:text-red-400 hover:bg-red-900 dark:hover:bg-red-900/30 rounded-lg transition-colors  hover:text-red-400 dark:hover:text-red-400"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -137,7 +148,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </div>
 
       {/* Main Content */}
-      <div className={`transition-all duration-300 ${sidebarOpen ? "lg:ml-64" : "ml-0"}`}>
+      <div
+        className={`transition-all duration-300 ${
+          sidebarOpen ? "lg:ml-64" : "ml-0"
+        }`}
+      >
         {/* Top Bar */}
         <header className="sticky top-0 z-40 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 shadow-sm">
           <div className="flex items-center justify-between h-16 px-6">
@@ -164,7 +179,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="p-6 bg-gray-50 dark:bg-gray-900 min-h-[calc(100vh-4rem)]">{children}</main>
+        <main className="p-6 bg-gray-50 dark:bg-gray-900 min-h-[calc(100vh-4rem)]">
+          {children}
+        </main>
       </div>
     </div>
   );
