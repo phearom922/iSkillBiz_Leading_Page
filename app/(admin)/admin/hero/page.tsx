@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/Toast";
-import { Loader2, Image as ImageIcon, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import ImageUploader from "@/components/admin/ImageUploader";
 
 export default function HeroManagementPage() {
@@ -200,34 +200,6 @@ export default function HeroManagementPage() {
     fetchHeroSection();
   };
 
-  const handleDeleteImage = async (imageId: string) => {
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-      const token = localStorage.getItem("admin_token");
-
-      if (!token) {
-        throw new Error("No authentication token found");
-      }
-
-      const response = await fetch(`${apiUrl}/api/images/${imageId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete image");
-      }
-
-      showToast("Image deleted successfully!", "success");
-      fetchHeroSection();
-    } catch (error: any) {
-      console.error("Error deleting image:", error);
-      showToast(error.message || "Failed to delete image", "error");
-    }
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -289,31 +261,6 @@ export default function HeroManagementPage() {
           onImageAdded={handleImageAdded}
           defaultImageType="hero"
         />
-        {images.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Current Hero Images
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {images.map((image) => (
-                <div key={image.id} className="relative group">
-                  <img
-                    src={image.image_url}
-                    alt={image.alt_text || "Hero image"}
-                    className="w-full h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
-                  />
-                  <button
-                    onClick={() => handleDeleteImage(image.id)}
-                    className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                    title="Delete image"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Text Content */}
