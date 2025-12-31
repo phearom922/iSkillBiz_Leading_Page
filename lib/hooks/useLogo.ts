@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { getApiEndpoint } from "@/lib/utils/api";
 
 export function useLogo() {
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
@@ -9,10 +10,7 @@ export function useLogo() {
   useEffect(() => {
     const fetchLogo = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-        // Remove trailing /api if present to avoid double /api/api
-        const baseUrl = apiUrl.endsWith('/api') ? apiUrl.slice(0, -4) : apiUrl;
-        const response = await fetch(`${baseUrl}/api/images?type=logo`, {
+        const response = await fetch(getApiEndpoint("/api/images?type=logo"), {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

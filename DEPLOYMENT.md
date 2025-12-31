@@ -143,9 +143,11 @@ Fill in the values:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-NEXT_PUBLIC_API_URL=https://inbox.iskillbiz.com/api
+NEXT_PUBLIC_API_URL=https://inbox.iskillbiz.com
 NODE_ENV=production
 ```
+
+**⚠️ สำคัญ:** `NEXT_PUBLIC_API_URL` ต้องไม่มี `/api` ต่อท้าย เพราะโค้ดจะเพิ่ม `/api` ให้อัตโนมัติ
 
 #### Backend Environment
 

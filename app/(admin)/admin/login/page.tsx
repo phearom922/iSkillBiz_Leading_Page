@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
+import { getApiEndpoint } from "@/lib/utils/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,10 +26,10 @@ export default function LoginPage() {
     }
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-      console.log("🔐 Attempting login to:", `${apiUrl}/api/auth/login`);
+      const loginUrl = getApiEndpoint("/api/auth/login");
+      console.log("🔐 Attempting login to:", loginUrl);
       
-      const response = await fetch(`${apiUrl}/api/auth/login`, {
+      const response = await fetch(loginUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
