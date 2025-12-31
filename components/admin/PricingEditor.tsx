@@ -37,7 +37,7 @@ export default function PricingEditor({
         },
         body: JSON.stringify({
           ...formData,
-          features: formData.features.split("\n").filter((f) => f.trim()),
+          features: formData.features.split("\n").filter((f: string) => f.trim()),
         }),
       });
 
