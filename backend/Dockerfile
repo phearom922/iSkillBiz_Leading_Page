@@ -8,13 +8,13 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --legacy-peer-deps --only=production && npm cache clean --force
 
 # Build the application
 FROM base AS builder
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Build NestJS
