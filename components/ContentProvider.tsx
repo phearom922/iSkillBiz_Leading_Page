@@ -27,8 +27,8 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   ): string | null => {
     if (!content?.sections || content.sections.length === 0) {
       // Check if there's a warning about Supabase not being configured
-      if (content?._warning) {
-        console.warn("⚠️", content._warning);
+      if (content && '_warning' in content && (content as any)._warning) {
+        console.warn("⚠️", (content as any)._warning);
       } else {
         console.log(`⚠️ No sections found for: ${sectionName}. Make sure Supabase is configured in .env.local`);
       }
