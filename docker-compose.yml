@@ -11,7 +11,7 @@ services:
       - .env.production
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://inbox.iskillbiz.com/api}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://inbox.iskillbiz.com}
     networks:
       - iskillbiz-network
     healthcheck:
