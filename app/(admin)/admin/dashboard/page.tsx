@@ -264,20 +264,15 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {statCards.map((card, index) => {
           const Icon = card.icon;
-          const CardWrapper = card.href ? Link : 'div';
-          const cardProps = card.href ? { href: card.href } : {};
+          const cardClassName = `group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+            card.href ? 'cursor-pointer' : ''
+          }`;
+          const cardStyle = {
+            animationDelay: `${index * 100}ms`,
+          };
           
-          return (
-            <CardWrapper
-              key={card.label}
-              {...cardProps}
-              className={`group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
-                card.href ? 'cursor-pointer' : ''
-              }`}
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
+          const cardContent = (
+            <>
               {/* Gradient Accent */}
               <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${card.bgGradient}`}></div>
               
@@ -305,7 +300,26 @@ export default function DashboardPage() {
                   )}
                 </div>
               </div>
-            </CardWrapper>
+            </>
+          );
+          
+          return card.href ? (
+            <Link
+              key={card.label}
+              href={card.href}
+              className={cardClassName}
+              style={cardStyle}
+            >
+              {cardContent}
+            </Link>
+          ) : (
+            <div
+              key={card.label}
+              className={cardClassName}
+              style={cardStyle}
+            >
+              {cardContent}
+            </div>
           );
         })}
       </div>
