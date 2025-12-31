@@ -3,11 +3,12 @@ import { createServerClient } from "@/lib/supabase/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { name: string } }
+  { params }: { params: Promise<{ name: string }> }
 ) {
   try {
     const supabase = await createServerClient();
-    const sectionName = decodeURIComponent(params.name);
+    const { name } = await params;
+    const sectionName = decodeURIComponent(name);
 
     // Fetch section by name
     const { data: section, error: sectionError } = await supabase
