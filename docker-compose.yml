@@ -7,13 +7,11 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001}
-      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
-      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
     env_file:
       - .env.production
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://inbox.iskillbiz.com/api}
     networks:
       - iskillbiz-network
     healthcheck:
@@ -31,15 +29,12 @@ services:
     restart: unless-stopped
     ports:
       - "3001:3001"
+    env_file:
+      - backend/.env.production
     environment:
       - NODE_ENV=production
       - NESTJS_PORT=3001
       - FRONTEND_URL=${FRONTEND_URL:-https://inbox.iskillbiz.com}
-      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
-      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
-      - JWT_SECRET=${JWT_SECRET}
-    env_file:
-      - backend/.env.production
     networks:
       - iskillbiz-network
     healthcheck:

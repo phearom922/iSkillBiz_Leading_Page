@@ -11,7 +11,8 @@ import { ImagesModule } from './images/images.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.local', '.env'],
+      // In Docker, environment variables are injected via process.env
+      // No need for envFilePath as Docker Compose handles this via env_file
     }),
     SupabaseModule,
     AuthModule,
