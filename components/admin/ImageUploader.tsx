@@ -146,7 +146,7 @@ export default function ImageUploader({
       }
 
       showToast("Image deleted successfully!", "success");
-      onUpdate();
+      if (onUpdate) onUpdate();
     } catch (error) {
       console.error("Error deleting image:", error);
       showToast("Failed to delete image", "error");

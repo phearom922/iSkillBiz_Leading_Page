@@ -100,7 +100,7 @@ export default function VideoManager({
       }
 
       showToast("Video deleted successfully!", "success");
-      onUpdate();
+      if (onUpdate) onUpdate();
     } catch (error) {
       console.error("Error deleting video:", error);
       showToast("Failed to delete video", "error");

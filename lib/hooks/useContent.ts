@@ -8,6 +8,7 @@ interface ContentData {
   pricing: any[];
   videos: any[];
   images: any[];
+  _warning?: string;
 }
 
 export function useContent() {
