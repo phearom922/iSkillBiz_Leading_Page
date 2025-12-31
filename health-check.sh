@@ -15,9 +15,9 @@ echo "🏥 Running health checks..."
 
 # Check if containers are running
 echo -e "${YELLOW}📦 Checking container status...${NC}"
-if ! docker-compose ps | grep -q "Up"; then
+if ! docker compose ps | grep -q "Up"; then
     echo -e "${RED}❌ Some containers are not running!${NC}"
-    docker-compose ps
+    docker compose ps
     exit 1
 fi
 

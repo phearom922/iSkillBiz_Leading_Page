@@ -34,15 +34,15 @@ fi
 
 # Stop existing containers
 echo -e "${YELLOW}🛑 Stopping existing containers...${NC}"
-docker-compose down || true
+docker compose down || true
 
 # Build new images
 echo -e "${YELLOW}🔨 Building Docker images...${NC}"
-docker-compose build --no-cache
+docker compose build --no-cache
 
 # Start containers
 echo -e "${YELLOW}▶️  Starting containers...${NC}"
-docker-compose up -d
+docker compose up -d
 
 # Wait for services to be ready
 echo -e "${YELLOW}⏳ Waiting for services to start...${NC}"
@@ -74,11 +74,11 @@ fi
 
 # Show container status
 echo -e "${YELLOW}📊 Container status:${NC}"
-docker-compose ps
+docker compose ps
 
 # Show logs
 echo -e "${YELLOW}📋 Recent logs:${NC}"
-docker-compose logs --tail=20
+docker compose logs --tail=20
 
 echo -e "${GREEN}✅ Deployment completed!${NC}"
 echo ""
@@ -87,6 +87,6 @@ echo "   - Frontend: http://localhost:3000"
 echo "   - Backend API: http://localhost:3001"
 echo "   - Nginx: http://localhost"
 echo ""
-echo "📝 To view logs: docker-compose logs -f"
-echo "🛑 To stop: docker-compose down"
+echo "📝 To view logs: docker compose logs -f"
+echo "🛑 To stop: docker compose down"
 

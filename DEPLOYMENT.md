@@ -44,8 +44,8 @@ apt update && apt upgrade -y
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
-# Install Docker Compose
-apt install docker-compose-plugin -y
+# Install Docker Compose (V2 plugin)
+apt install docker compose-plugin -y
 
 # Verify installation
 docker --version
@@ -197,10 +197,10 @@ This will:
 
 ```bash
 # Check container status
-docker-compose ps
+docker compose ps
 
 # Check logs
-docker-compose logs -f
+docker compose logs -f
 
 # Run health checks
 ./health-check.sh
@@ -256,7 +256,7 @@ ssl_certificate_key /etc/letsencrypt/live/inbox.iskillbiz.com/privkey.pem;
 Then restart nginx:
 
 ```bash
-docker-compose restart nginx
+docker compose restart nginx
 ```
 
 ## Maintenance
@@ -265,24 +265,24 @@ docker-compose restart nginx
 
 ```bash
 # All services
-docker-compose logs -f
+docker compose logs -f
 
 # Specific service
-docker-compose logs -f frontend
-docker-compose logs -f backend
-docker-compose logs -f nginx
+docker compose logs -f frontend
+docker compose logs -f backend
+docker compose logs -f nginx
 ```
 
 ### Restart Services
 
 ```bash
 # Restart all
-docker-compose restart
+docker compose restart
 
 # Restart specific service
-docker-compose restart frontend
-docker-compose restart backend
-docker-compose restart nginx
+docker compose restart frontend
+docker compose restart backend
+docker compose restart nginx
 ```
 
 ### Update Application
@@ -296,13 +296,13 @@ git pull  # or upload new files
 ### Stop Services
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Start Services
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Troubleshooting
@@ -311,10 +311,10 @@ docker-compose up -d
 
 ```bash
 # Check logs
-docker-compose logs
+docker compose logs
 
 # Check container status
-docker-compose ps
+docker compose ps
 
 # Check Docker system
 docker system df
@@ -341,7 +341,7 @@ ls -la .env.production
 ls -la backend/.env.production
 
 # Check if variables are loaded
-docker-compose config
+docker compose config
 ```
 
 ### Database Connection Issues
@@ -357,7 +357,7 @@ docker-compose config
 docker exec iskillbiz-nginx nginx -t
 
 # Check nginx logs
-docker-compose logs nginx
+docker compose logs nginx
 ```
 
 ## Security Best Practices
@@ -377,7 +377,7 @@ docker-compose logs nginx
 
 4. **Monitor logs** regularly:
    ```bash
-   docker-compose logs --tail=100
+   docker compose logs --tail=100
    ```
 
 5. **Keep Docker updated:**
@@ -389,7 +389,7 @@ docker-compose logs nginx
 
 If you encounter issues:
 
-1. Check logs: `docker-compose logs -f`
+1. Check logs: `docker compose logs -f`
 2. Verify environment variables
 3. Check Cloudflare DNS settings
 4. Verify Supabase connection
@@ -408,15 +408,15 @@ cd /opt/iskillbiz/app
 ./health-check.sh
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Restart
-docker-compose restart
+docker compose restart
 
 # Stop
-docker-compose down
+docker compose down
 
 # Start
-docker-compose up -d
+docker compose up -d
 ```
 
